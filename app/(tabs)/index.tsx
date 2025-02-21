@@ -24,7 +24,23 @@ function MoviesStack() {
     </Stack.Navigator>
   );
 }
-
+function SearchStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Search Movies" component={SearchMovies} options={{ headerShown: false }}/>
+      <Stack.Screen name="MovieDetails" component={MovieDetails} />
+    </Stack.Navigator>
+  );
+}
+function TVStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="OnTheAirTV" component={OnTheAirTV} />
+      <Stack.Screen name="PopularTV" component={PopularTV} />
+      <Stack.Screen name="TopRatedTV" component={TopRatedTV} />
+    </Stack.Navigator>
+  );
+}
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -73,18 +89,10 @@ function MoviesTab() {
 
 export default function HomeScreen() {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarActiveTintColor: 'blue',
-        tabBarInactiveTintColor: 'gray',
-        tabBarIndicatorStyle: { backgroundColor: 'blue' },
-      }}
-    >
+    <Tab.Navigator>
       <Tab.Screen name="Movies" component={MoviesStack} />
-      <Tab.Screen name="Search Movies" component={SearchMovies} />
-      <Tab.Screen name="On The Air" component={OnTheAirTV} />
-      <Tab.Screen name="Popular TV" component={PopularTV} />
-      <Tab.Screen name="Top Rated TV" component={TopRatedTV} />
+      <Tab.Screen name="Search Movies" component={SearchStack} />
+      <Tab.Screen name="TV Stack" component={TVStack} />
     </Tab.Navigator>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TextInput, Button } from 'react-native';
+import { View, Text,Image, FlatList, Button } from 'react-native';
 import { searchMovies } from './api';
 
 const SearchMovies = () => {
@@ -13,22 +13,28 @@ const SearchMovies = () => {
 
   return (
     <View>
-      <TextInput
-        placeholder="Search Movies"
-        value={query}
-        onChangeText={setQuery}
-      />
-      <Button title="Search" onPress={handleSearch} />
-      <FlatList
-        data={movies}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View>
-            <Text>{item.title}</Text>
+    <FlatList
+      data={movies}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item }) => (
+        <View style={{ flexDirection: 'row', margin: 10 }}>
+          <Image 
+            source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
+            style={{ width: 100, height: 100 }}
+          />
+          <View style={{ marginLeft: 10, flex: 1 }}>
+            <Text style={{ fontWeight: 'bold' }}>{item.title}</Text>
+            <Text>{item.popularity}</Text>
+            <Text>{item.release_date}</Text>
+            <Button 
+              title="More Details" 
+              onPress={() => navigateToDetails(item)} 
+            />
           </View>
-        )}
-      />
-    </View>
+        </View>
+      )}
+    />
+  </View>
   );
 };
 

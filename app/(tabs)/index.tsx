@@ -10,6 +10,21 @@ import SearchMovies from '@/components/SearchMovies';
 import OnTheAirTV from '@/components/OnTheAirTV';
 import PopularTV from '@/components/PopularTV';
 import TopRatedTV from '@/components/TopRatedTV';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import MovieDetails from '@/components/MovieDetails';
+
+const Stack = createStackNavigator();
+
+function MoviesStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="MoviesTab" component={MoviesTab} options={{ headerShown: false }} />
+      <Stack.Screen name="MovieDetails" component={MovieDetails} />
+    </Stack.Navigator>
+  );
+}
+
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -65,7 +80,7 @@ export default function HomeScreen() {
         tabBarIndicatorStyle: { backgroundColor: 'blue' },
       }}
     >
-      <Tab.Screen name="Movies" component={MoviesTab} />
+      <Tab.Screen name="Movies" component={MoviesStack} />
       <Tab.Screen name="Search Movies" component={SearchMovies} />
       <Tab.Screen name="On The Air" component={OnTheAirTV} />
       <Tab.Screen name="Popular TV" component={PopularTV} />
@@ -73,3 +88,4 @@ export default function HomeScreen() {
     </Tab.Navigator>
   );
 }
+

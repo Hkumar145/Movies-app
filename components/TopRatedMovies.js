@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text,Image, FlatList } from 'react-native';
+import { View, Text,Image,Button, FlatList } from 'react-native';
 import { fetchTopRatedMovies } from './api';
+import { useNavigation } from '@react-navigation/native';
 
 
 const TopRatedMovies = () => {
   const [movies, setMovies] = useState([]);
+  const navigation = useNavigation(); // 
 
   useEffect(() => {
     const getMovies = async () => {
@@ -15,6 +17,10 @@ const TopRatedMovies = () => {
     getMovies();
   }, []);
 
+  const navigateToDetails = (movie) => {
+    navigation.navigate('MovieDetails', { movie }); //
+  };
+
   return (
     <View>
     <FlatList
@@ -22,14 +28,18 @@ const TopRatedMovies = () => {
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
         <View style={{ flexDirection: 'row', margin: 10 }}>
-          <Image source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
+          <Image 
+            source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
             style={{ width: 100, height: 100 }}
           />
           <View style={{ marginLeft: 10, flex: 1 }}>
             <Text style={{ fontWeight: 'bold' }}>{item.title}</Text>
-            <Text>{item.popularity}</Text>
-            <Text>{item.release_date}</Text>
-            
+            <Text>Popularity: {item.popularity}</Text>
+            <Text>Release Date: {item.release_date}</Text>
+            <Button 
+              title="More Details" 
+              onPress={() => navigateToDetails(item)} 
+            />
           </View>
         </View>
       )}

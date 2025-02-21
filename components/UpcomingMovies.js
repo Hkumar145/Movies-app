@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text,  Button, Image, FlatList } from 'react-native';
+import { View, Text, Button, Image, FlatList } from 'react-native';
 import { fetchUpcomingMovies } from './api';
 import { useNavigation } from '@react-navigation/native';
-import MovieDetails from './MovieDetails';
-
 
 const UpcomingMovies = () => {
   const [movies, setMovies] = useState([]);
+  const navigation = useNavigation(); // 
 
   useEffect(() => {
     const getMovies = async () => {
@@ -17,9 +16,8 @@ const UpcomingMovies = () => {
     getMovies();
   }, []);
 
-  const navigation = useNavigation();
   const navigateToDetails = (movie) => {
-    navigation.navigate('MovieDetails', { movie });
+    navigation.navigate('MovieDetails', { movie }); //
   };
 
   return (
@@ -35,8 +33,8 @@ const UpcomingMovies = () => {
             />
             <View style={{ marginLeft: 10, flex: 1 }}>
               <Text style={{ fontWeight: 'bold' }}>{item.title}</Text>
-              <Text>{item.popularity}</Text>
-              <Text>{item.release_date}</Text>
+              <Text>Popularity: {item.popularity}</Text>
+              <Text>Release Date: {item.release_date}</Text>
               <Button 
                 title="More Details" 
                 onPress={() => navigateToDetails(item)} 
